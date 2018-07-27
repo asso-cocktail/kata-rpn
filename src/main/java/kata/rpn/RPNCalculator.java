@@ -41,16 +41,14 @@ public class RPNCalculator implements Calculator {
      */
     public BigDecimal compute(String operation)
     {
-        if(!isValid(operation))
-            throw invalidArgumentException;
+        if(!isValid(operation)) throw invalidArgumentException;
 
         String[] stack = new String[0];
 
         for (String elem : operation.split(" "))
             stack = isNum(elem) ? push(stack, elem) : calc(stack, elem);
 
-        if (stack.length > 1)
-            throw invalidArgumentException;
+        if (stack.length > 1) throw invalidArgumentException;
 
         return new BigDecimal(stack[0]);
     }
