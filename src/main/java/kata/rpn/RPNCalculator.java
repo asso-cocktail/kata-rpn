@@ -62,13 +62,14 @@ public class RPNCalculator implements Calculator {
      */
     private boolean isValid(String operation)
     {
+        String[] signs = {"+", "-", "x", "/"};
         String[] parts = operation.split(" ");
 
         if (parts.length == 0) return false;
         for (String part : parts)
         {
             // IF not a sign AND not a number
-            if ((!part.equals("+") && !part.equals("-") && !part.equals("x") && !part.equals("/")) && !isNum(part))
+            if (!Arrays.asList(signs).contains(part) && !isNum(part))
                 return false;
         }
         return true;
