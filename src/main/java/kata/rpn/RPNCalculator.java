@@ -67,7 +67,7 @@ public class RPNCalculator implements Calculator {
         if (parts.length == 0) return false;
         for (String part : parts)
         {
-            // IF not a mathematical sign AND not a mathematical number
+            // IF not a sign AND not a number
             if ((!part.equals("+") && !part.equals("-") && !part.equals("x") && !part.equals("/")) && !isNum(part))
                 return false;
         }
