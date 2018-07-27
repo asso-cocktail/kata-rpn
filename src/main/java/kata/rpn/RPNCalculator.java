@@ -31,7 +31,7 @@ public class RPNCalculator implements Calculator {
      */
     RPNCalculator()
     {
-        this.roundingScale = 1;
+        roundingScale = 1;
     }
 
     /**
@@ -68,7 +68,7 @@ public class RPNCalculator implements Calculator {
         for (String part : parts)
         {
             // IF not a mathematical sign AND not a mathematical number
-            if ((!part.equals("+") || !part.equals("-") || !part.equals("x") || !part.equals("/")) && !isNum(part))
+            if ((!part.equals("+") && !part.equals("-") && !part.equals("x") && !part.equals("/")) && !isNum(part))
                 return false;
         }
         return true;
