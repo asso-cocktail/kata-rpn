@@ -88,6 +88,15 @@ public class RPNCalculator implements Calculator {
     }
 
     /**
+     * Determines if a number is a whole number
+     * @param number (BigDecimal) number
+     * @return (boolean) true or false
+     */
+    private boolean isWholeNum(BigDecimal number) {
+        return number.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
+    }
+
+    /**
      * Adds elem to the end of array
      * @param array (String[]) array that contains elements
      * @param elem (String) element of the array
@@ -127,11 +136,9 @@ public class RPNCalculator implements Calculator {
                 array[pos] = first.multiply(second).toString();
                 break;
             case "/":
-                if (second.equals(BigDecimal.ZERO))
-                    throw this.divideByZeroException;
+                if (second.equals(BigDecimal.ZERO)) throw this.divideByZeroException;
                 BigDecimal res = first.divide(second, this.roundingScale, RoundingMode.FLOOR);
-                if(Double.parseDouble(res.toString()) - Math.floor(Double.parseDouble(res.toString())) == 0)
-                    res = res.setScale(0,BigDecimal.ROUND_DOWN);
+                if(isWholeNum(res)) res = res.setScale(0, BigDecimal.ROUND_DOWN);
                 array[pos] = res.toString();
                 break;
             default:
