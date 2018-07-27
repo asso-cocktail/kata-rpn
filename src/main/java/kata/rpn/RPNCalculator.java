@@ -42,7 +42,7 @@ public class RPNCalculator implements Calculator {
     public BigDecimal compute(String operation)
     {
         if(!isValid(operation))
-            throw this.invalidArgumentException;
+            throw invalidArgumentException;
 
         String[] stack = new String[0];
 
@@ -50,7 +50,7 @@ public class RPNCalculator implements Calculator {
             stack = isNum(elem) ? push(stack, elem) : calc(stack, elem);
 
         if (stack.length > 1)
-            throw this.invalidArgumentException;
+            throw invalidArgumentException;
 
         return new BigDecimal(stack[0]);
     }
@@ -131,8 +131,8 @@ public class RPNCalculator implements Calculator {
                 break;
             case "/":
                 // IF divide by zero
-                if (second.equals(BigDecimal.ZERO)) throw this.divideByZeroException;
-                BigDecimal res = first.divide(second, this.roundingScale, RoundingMode.FLOOR);
+                if (second.equals(BigDecimal.ZERO)) throw divideByZeroException;
+                BigDecimal res = first.divide(second, roundingScale, RoundingMode.FLOOR);
                 // IF res is a whole number
                 if(res.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0)
                     res = res.setScale(0, BigDecimal.ROUND_DOWN);
