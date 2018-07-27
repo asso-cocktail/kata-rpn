@@ -16,11 +16,19 @@ public class RPNCalculator implements Calculator {
     private IllegalArgumentException invalidArgumentException = new IllegalArgumentException("Invalid expression");
     private ArithmeticException divideByZeroException = new ArithmeticException("/ by zero");
 
+    /**
+     * Creates RPNCalculator object
+     * @param roundingScale (int) number of digits after the decimal point
+     */
     RPNCalculator(int roundingScale)
     {
         this.roundingScale = roundingScale;
     }
 
+    /**
+     * Creates RPNCalculator object
+     * number of digits after the decimal point set to 1 by default
+     */
     RPNCalculator()
     {
         this.roundingScale = 1;
@@ -54,22 +62,16 @@ public class RPNCalculator implements Calculator {
      */
     private boolean isValid(String operation)
     {
-        String[] n = operation.split(" ");
+        String[] parts = operation.split(" ");
 
-        if (n.length == 0) return false;
-        for (String i : n)
-            if (!isSign(i) && !isNum(i)) return false;
+        if (parts.length == 0) return false;
+        for (String part : parts)
+        {
+            // IF not a mathematical sign AND not a mathematical number
+            if ((!part.equals("+") || !part.equals("-") || !part.equals("x") || !part.equals("/")) && !isNum(part))
+                return false;
+        }
         return true;
-    }
-
-    /**
-     * Determines if an element is a valid mathematical sign
-     * @param elem (String) element
-     * @return (boolean) true or false
-     */
-    private boolean isSign(String elem)
-    {
-        return elem.equals("+") || elem.equals("-") || elem.equals("x") || elem.equals("/");
     }
 
     /**
@@ -85,15 +87,6 @@ public class RPNCalculator implements Calculator {
             return false;
         }
         return true;
-    }
-
-    /**
-     * Determines if a number is a whole number
-     * @param number (BigDecimal) number
-     * @return (boolean) true or false
-     */
-    private boolean isWholeNum(BigDecimal number) {
-        return number.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0;
     }
 
     /**
@@ -136,9 +129,12 @@ public class RPNCalculator implements Calculator {
                 array[pos] = first.multiply(second).toString();
                 break;
             case "/":
+                // IF divide by zero
                 if (second.equals(BigDecimal.ZERO)) throw this.divideByZeroException;
                 BigDecimal res = first.divide(second, this.roundingScale, RoundingMode.FLOOR);
-                if(isWholeNum(res)) res = res.setScale(0, BigDecimal.ROUND_DOWN);
+                // IF res is a whole number
+                if(res.remainder(BigDecimal.ONE).compareTo(BigDecimal.ZERO) == 0)
+                    res = res.setScale(0, BigDecimal.ROUND_DOWN);
                 array[pos] = res.toString();
                 break;
             default:
