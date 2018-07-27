@@ -6,7 +6,7 @@ import java.util.Arrays;
 
 /**
  * Calculate RPN expressions
- * @author Emmanuel Turbet-Delof
+ * @author ManuStrozor
  * @version 1.0
  */
 public class RPNCalculator implements Calculator {
