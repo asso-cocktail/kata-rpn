@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class CalculatorTest {
 
@@ -18,48 +18,48 @@ public class CalculatorTest {
 
     @Test
     public void additionSimple() {
-        assertTrue(rpn.compute("4 2 +").equals(new BigDecimal(6)));
-        assertTrue(rpn.compute("0 0 +").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("2 2 +").equals(new BigDecimal(4)));
-        assertTrue(rpn.compute("-4 4 +").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("2 -2 +").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("-4 -2 +").equals(new BigDecimal(-6)));
+        assertEquals(new BigDecimal(6), rpn.compute("4 2 +"));
+        assertEquals(new BigDecimal(0), rpn.compute("0 0 +"));
+        assertEquals(new BigDecimal(4), rpn.compute("2 2 +"));
+        assertEquals(new BigDecimal(0), rpn.compute("-4 4 +"));
+        assertEquals(new BigDecimal(0), rpn.compute("2 -2 +"));
+        assertEquals(new BigDecimal(-6), rpn.compute("-4 -2 +"));
     }
 
     @Test
     public void soustractionSimple() {
-        assertTrue(rpn.compute("4 2 -").equals(new BigDecimal(2)));
-        assertTrue(rpn.compute("0 0 -").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("2 2 -").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("-4 4 -").equals(new BigDecimal(-8)));
-        assertTrue(rpn.compute("2 -2 -").equals(new BigDecimal(4)));
-        assertTrue(rpn.compute("-4 -2 -").equals(new BigDecimal(-2)));
+        assertEquals(new BigDecimal(2), rpn.compute("4 2 -"));
+        assertEquals(new BigDecimal(0), rpn.compute("0 0 -"));
+        assertEquals(new BigDecimal(0), rpn.compute("2 2 -"));
+        assertEquals(new BigDecimal(-8), rpn.compute("-4 4 -"));
+        assertEquals(new BigDecimal(4), rpn.compute("2 -2 -"));
+        assertEquals(new BigDecimal(-2), rpn.compute("-4 -2 -"));
     }
 
     @Test
     public void multiplicationSimple() {
-        assertTrue(rpn.compute("1 0 x").equals(new BigDecimal(0)));
-        assertTrue(rpn.compute("1 1 x").equals(new BigDecimal(1)));
-        assertTrue(rpn.compute("3 6 x").equals(new BigDecimal(18)));
-        assertTrue(rpn.compute("5 25 x").equals(new BigDecimal(125)));
-        assertTrue(rpn.compute("11 123 x").equals(new BigDecimal(1353)));
+        assertEquals(new BigDecimal(0), rpn.compute("1 0 x"));
+        assertEquals(new BigDecimal(1), rpn.compute("1 1 x"));
+        assertEquals(new BigDecimal(18), rpn.compute("3 6 x"));
+        assertEquals(new BigDecimal(125), rpn.compute("5 25 x"));
+        assertEquals(new BigDecimal(1353), rpn.compute("11 123 x"));
     }
 
     @Test
     public void divisionSimple() {
-        assertTrue(rpn.compute("1 1 /").equals(new BigDecimal(1)));
-        assertTrue(rpn.compute("1 2 /").equals(new BigDecimal(0.5)));
+        assertEquals(new BigDecimal(1), rpn.compute("1 1 /"));
+        assertEquals(new BigDecimal(0.5), rpn.compute("1 2 /"));
         // BigDecimal(0.3) = 0.29999999...
-        assertTrue(rpn.compute("1 3 /").equals(new BigDecimal("0.3")));
-        assertTrue(rpn.compute("3 2 /").equals(new BigDecimal(1.5)));
+        assertEquals(new BigDecimal("0.3"), rpn.compute("1 3 /"));
+        assertEquals(new BigDecimal(1.5), rpn.compute("3 2 /"));
     }
 
     @Test
     public void operationComposee() {
-        assertTrue(rpn.compute("3 15 8 x 7 + x").equals(new BigDecimal(381)));
-        assertTrue(rpn.compute("1 2 + 4 x 5 + 3 -").equals(new BigDecimal(14)));
-        assertTrue(rpn.compute("5 4 1 2 + x +").equals(new BigDecimal(17)));
-        assertTrue(rpn.compute("3 4 2 1 + x + 2 /").equals(new BigDecimal(7.5)));
+        assertEquals(new BigDecimal(381), rpn.compute("3 15 8 x 7 + x"));
+        assertEquals(new BigDecimal(14), rpn.compute("1 2 + 4 x 5 + 3 -"));
+        assertEquals(new BigDecimal(17), rpn.compute("5 4 1 2 + x +"));
+        assertEquals(new BigDecimal(7.5), rpn.compute("3 4 2 1 + x + 2 /"));
     }
 
     @Test
